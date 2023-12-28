@@ -1,24 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { Container } from "@mui/material";
 import { apiAsiaRequester, apiKrRequester } from "../api";
 import SummonerSearchHeader from "../components/summonerSearch/SummonerSearchHeader";
-
-interface Summoner {
-  accountId: string;
-  id: string;
-  name: string;
-  profileIconId: number;
-  puuid: string;
-  revisionDate: number;
-  summonerLevel: number;
-}
+import { SummonerInfo } from "../types/SummonerType";
 
 const SummonerSearchPage: React.FC = () => {
   const { summonerName } = useParams<{ summonerName?: string }>();
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [summonerInfo, setSummonerInfo] = useState<Summoner | undefined>(
-    undefined,
-  );
+  const [summonerInfo, setSummonerInfo] = useState<SummonerInfo | null>(null);
 
   const getPuuid = async (userName: string, tag: string): Promise<string> => {
     try {
@@ -74,9 +64,9 @@ const SummonerSearchPage: React.FC = () => {
   }, [summonerName, userName, tag]);
 
   return (
-    <div>
-      <SummonerSearchHeader summonerInfo={summonerInfo} />
-    </div>
+    <Container maxWidth="lg">
+      {summonerInfo && <SummonerSearchHeader summonerInfo={summonerInfo} />}
+    </Container>
   );
 };
 

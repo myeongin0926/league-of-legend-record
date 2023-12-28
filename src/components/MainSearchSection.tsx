@@ -2,8 +2,8 @@ import React from "react";
 import { TextField, Button } from "@mui/material";
 import { Container } from "@mui/system";
 import SearchIcon from "@mui/icons-material/Search";
-import img from "../images/searchSectionBackground.jpeg";
 import useSummonerSearchForm from "../hooks/useSummonerSearchForm";
+import { PUBLIC_IMAGE_URL } from "../constants/MessageFormat";
 
 const MainSearchSection: React.FC = () => {
   const { formData, handleSummonerSearchChange, handleSummonerSearchSubmit } =
@@ -19,10 +19,11 @@ const MainSearchSection: React.FC = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "35vh",
-        width: "100vw",
-        background: `url(${img}) no-repeat center/cover`,
-        boxShadow: "inset 100px 100px 100px 100px #000000a1",
+        height: "40vh",
+        background: `url(${PUBLIC_IMAGE_URL(
+          "/images/searchSectionBackground.jpeg",
+        )}) no-repeat center/cover`,
+        boxShadow: "inset 0 100px 100px 100px #000000a1",
       }}
     >
       <form onSubmit={handleSummonerSearchSubmit}>
@@ -34,7 +35,7 @@ const MainSearchSection: React.FC = () => {
           value={formData.userName + formData.tag}
           onChange={handleSummonerSearchChange}
           sx={{
-            height: 40,
+            height: 50,
             width: 350,
             pt: 1,
             pl: 2,

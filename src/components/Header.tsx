@@ -1,13 +1,12 @@
 import React from "react";
-import styled from "styled-components";
-
-const StyleHeader = styled.header`
-  height: 150px;
-  border: 1px solid black;
-`;
+import { Container } from "@mui/material";
 
 const Header: React.FC = () => {
-  return <StyleHeader>hello</StyleHeader>;
+  return (
+    <Container maxWidth={false} sx={{ height: "150px" }}>
+      hello
+    </Container>
+  );
 };
 
 export default Header;
