@@ -5,8 +5,9 @@ import {
   SummonerRanksInfo,
   SummonerRankInfo,
   QueueType,
+  QueueName,
 } from "../../types/SummonerType";
-import { PROFILE_ICON_URL } from "../../constants/MessageFormat";
+import { getProfileIconUrl } from "../../utils/MessageFormat";
 import { apiKrRequester } from "../../api";
 import SummonerTierCard from "./SummonerTierCard";
 
@@ -43,17 +44,23 @@ const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
     fetchSummonerRanksInfo();
   }, [id]);
 
-  const renderSummonerTierCard = (queueType: QueueType) => {
-    const rankInfo = summonerRanksInfo[queueType] || "UnRanked";
-    return <SummonerTierCard rankInfo={rankInfo} />;
+  const renderSummonerTierCard = (
+    queueType: QueueType | undefined,
+    queueName: QueueName,
+  ) => {
+    if (!queueType) return null;
+
+    const rankInfo = summonerRanksInfo[queueType];
+    return <SummonerTierCard rankInfo={rankInfo} queueName={queueName} />;
   };
-  const profileIconUrl = PROFILE_ICON_URL(profileIconId);
+
+  const profileIconUrl = getProfileIconUrl(profileIconId);
 
   return (
     <Box>
       <Box
         component="img"
-        style={{ borderRadius: "50%" }}
+        sx={{ width: "120px", objectFit: "contain", borderRadius: "50%" }}
         src={profileIconUrl}
         alt="SummonerProfileIcon"
       />
@@ -62,8 +69,8 @@ const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
         <Box component="span">#{tag}</Box>
       </Box>
       <Box component="span">{summonerLevel}</Box>
-      {renderSummonerTierCard(QueueType.RANKED_SOLO_5x5)}
-      {renderSummonerTierCard(QueueType.RANKED_FLEX_SR)}
+      {renderSummonerTierCard(QueueType.RANKED_SOLO_5x5, "솔로 랭크")}
+      {renderSummonerTierCard(QueueType.RANKED_FLEX_SR, "자유 랭크")}
     </Box>
   );
 };

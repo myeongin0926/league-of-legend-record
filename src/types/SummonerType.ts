@@ -34,6 +34,8 @@ export enum QueueType {
   RANKED_FLEX_SR = "RANKED_FLEX_SR",
 }
 
+export type QueueName = "자유 랭크" | "솔로 랭크";
+
 export interface SummonerRankInfo {
   leaguePoints: number;
   losses: number;

@@ -3,7 +3,7 @@ import { TextField, Button } from "@mui/material";
 import { Container } from "@mui/system";
 import SearchIcon from "@mui/icons-material/Search";
 import useSummonerSearchForm from "../hooks/useSummonerSearchForm";
-import { PUBLIC_IMAGE_URL } from "../constants/MessageFormat";
+import { getPublicUrl } from "../utils/MessageFormat";
 
 const MainSearchSection: React.FC = () => {
   const { formData, handleSummonerSearchChange, handleSummonerSearchSubmit } =
@@ -20,7 +20,7 @@ const MainSearchSection: React.FC = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "40vh",
-        background: `url(${PUBLIC_IMAGE_URL(
+        background: `url(${getPublicUrl(
           "/images/searchSectionBackground.jpeg",
         )}) no-repeat center/cover`,
         boxShadow: "inset 0 100px 100px 100px #000000a1",
