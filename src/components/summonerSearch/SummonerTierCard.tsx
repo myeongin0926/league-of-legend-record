@@ -81,7 +81,7 @@ const SummonerTierCard: React.FC<Props> = ({ rankInfo, queueName }) => {
   const { tier, rank, losses, wins, leaguePoints } = rankInfo;
   const tierImageUrl = getPublicUrl(`/images/tier/${tier}.png`);
   const tierName = getSummonerTierName(tier, rank);
-  const winLossRecord = `${losses}승 ${wins}패`;
+  const winLossRecord = `${wins}승 ${losses}패`;
   const winRate = calculateWinRate(wins, losses);
 
   return (
