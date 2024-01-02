@@ -66,7 +66,6 @@ const SummonerTierCard: React.FC<Props> = ({ rankInfo, queueName }) => {
             sx={{
               color: THEME_COLOR.grey400,
               fontSize: "22px",
-              fontFamilly: "TAEBAEKmilkyway",
               fontWeight: "600",
               letterSpacing: ".5px",
             }}
@@ -135,7 +134,6 @@ const SummonerTierCard: React.FC<Props> = ({ rankInfo, queueName }) => {
             sx={{
               color: THEME_COLOR.TIER[tier],
               fontSize: "22px",
-              fontFamilly: "TAEBAEKmilkyway",
               fontWeight: "600",
               letterSpacing: ".5px",
             }}
@@ -147,7 +145,7 @@ const SummonerTierCard: React.FC<Props> = ({ rankInfo, queueName }) => {
             sx={{
               color: THEME_COLOR.grey600,
               fontWeight: "600",
-              fontSize: "15px",
+              fontSize: "14px",
               pl: "10px",
             }}
           >
@@ -158,7 +156,7 @@ const SummonerTierCard: React.FC<Props> = ({ rankInfo, queueName }) => {
           <Box
             component="span"
             sx={{
-              fontSize: "15px",
+              fontSize: "13px",
               fontWeight: "bold",
               color: THEME_COLOR.grey700,
             }}
@@ -167,7 +165,7 @@ const SummonerTierCard: React.FC<Props> = ({ rankInfo, queueName }) => {
           </Box>
           <Box
             component="span"
-            sx={{ color: THEME_COLOR.grey500, fontSize: "14px", pl: "10px" }}
+            sx={{ color: THEME_COLOR.grey500, fontSize: "13px", pl: "10px" }}
           >
             ({winLossRecord})
           </Box>

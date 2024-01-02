@@ -19,6 +19,10 @@ const THEME_COLOR = {
   grey500: grey[500],
   grey600: grey[600],
   grey700: grey[700],
+  grey800: grey[800],
+  grey900: grey[900],
+  boxShadowInset: "#00000767",
+
   TIER: {
     IRON: grey[600],
     BRONZE: brown[600],
@@ -36,6 +40,7 @@ const THEME_COLOR = {
 const THEME_GLOBAL_STYLES = {
   "*": {
     verticalAlign: "text-bottom",
+    fontFamily: "Nanum Gothic, sans-serif !important",
   },
 };
 

@@ -4,6 +4,7 @@ import { Container } from "@mui/system";
 import SearchIcon from "@mui/icons-material/Search";
 import useSummonerSearchForm from "../hooks/useSummonerSearchForm";
 import { getPublicUrl } from "../utils/MessageFormat";
+import { THEME_COLOR } from "../theme";
 
 const MainSearchSection: React.FC = () => {
   const { formData, handleSummonerSearchChange, handleSummonerSearchSubmit } =
@@ -23,7 +24,7 @@ const MainSearchSection: React.FC = () => {
         background: `url(${getPublicUrl(
           "/images/searchSectionBackground.jpeg",
         )}) no-repeat center/cover`,
-        boxShadow: "inset 0 100px 100px 100px #000000a1",
+        boxShadow: `inset 0 100px 1000px 100px ${THEME_COLOR.boxShadowInset}`,
       }}
     >
       <form onSubmit={handleSummonerSearchSubmit}>

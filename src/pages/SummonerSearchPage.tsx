@@ -51,8 +51,16 @@ const SummonerSearchPage: React.FC = () => {
         if (userName && tag) {
           try {
             const puuid = await getPuuid(userName, tag);
-            const summonerInfo = await getSummonerInfo(puuid);
-            setSummonerInfo({ ...summonerInfo.data, userName, tag });
+            const summonerInfo = await getSummonerInfo(puuid).then(
+              (res) => res.data,
+            );
+            console.log(summonerInfo);
+            setSummonerInfo({
+              ...summonerInfo,
+              userName:
+                summonerInfo.name === userName ? summonerInfo.name : userName,
+              tag,
+            });
           } catch (error) {
             console.error(error);
           }

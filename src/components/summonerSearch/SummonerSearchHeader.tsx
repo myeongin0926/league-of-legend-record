@@ -7,7 +7,7 @@ import {
   QueueType,
   QueueName,
 } from "../../types/SummonerType";
-import { getProfileIconUrl } from "../../utils/MessageFormat";
+import { getProfileIconUrl, getPublicUrl } from "../../utils/MessageFormat";
 import { apiKrRequester } from "../../api";
 import SummonerTierCard from "./SummonerTierCard";
 import { THEME_COLOR } from "../../theme";
@@ -17,7 +17,14 @@ interface Props {
 }
 
 const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
-  const { userName, profileIconId, summonerLevel, tag, id } = summonerInfo;
+  const {
+    userName,
+    profileIconId,
+    summonerLevel,
+    tag,
+    id,
+    name: prevName,
+  } = summonerInfo;
   const [summonerRanksInfo, setSummonerRanksInfo] = useState<SummonerRanksInfo>(
     {},
   );
@@ -29,13 +36,11 @@ const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
           `/lol/league/v4/entries/by-summoner/${id}`,
         );
         const ranksInfo: SummonerRanksInfo = {};
-
         response.data.forEach((item: SummonerRankInfo) => {
           if (Object.values(QueueType).includes(item.queueType as QueueType)) {
             ranksInfo[item.queueType] = item;
           }
         });
-
         setSummonerRanksInfo(ranksInfo);
       } catch (error) {
         console.log(error);
@@ -44,7 +49,6 @@ const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
 
     fetchSummonerRanksInfo();
   }, [id]);
-
   const renderSummonerTierCard = (
     queueType: QueueType | undefined,
     queueName: QueueName,
@@ -54,20 +58,26 @@ const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
     const rankInfo = summonerRanksInfo[queueType];
     return <SummonerTierCard rankInfo={rankInfo} queueName={queueName} />;
   };
-
   const profileIconUrl = getProfileIconUrl(profileIconId);
 
   return (
     <Box>
-      <Box sx={{ display: "flex", background: THEME_COLOR.grey700, p: "20px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          background: `url(${getPublicUrl(
+            "/images/summonerSearchHeaderBackground.avif",
+          )}) no-repeat center/cover`,
+          p: "20px",
+        }}
+      >
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Box
             component="img"
             sx={{
-              width: "120px",
+              width: "100px",
               objectFit: "contain",
               borderRadius: "50%",
-              border: "5px solid",
             }}
             src={profileIconUrl}
             alt="SummonerProfileIcon"
@@ -76,24 +86,55 @@ const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
             component="div"
             sx={{
               margin: "0 auto",
-              textAlign: "center",
               background: "black",
-              padding: "5px 10px 3px 10px",
+              padding: "3px 7px",
               marginTop: "-15px",
-              border: 2,
-              borderRadius: "30%",
+              borderRadius: "10px",
               color: THEME_COLOR.grey400,
               fontWeight: "bold",
-              fontSize: "15px",
+              fontSize: "13px",
             }}
           >
             {summonerLevel}
           </Box>
         </Box>
 
-        <Box component="p">
-          <Box component="span">{userName}</Box>
-          <Box component="span">#{tag}</Box>
+        <Box
+          sx={{
+            fontSize: "20px",
+            color: "white",
+            pl: "20px",
+            pt: "10px",
+            fontWeight: "bold",
+          }}
+        >
+          <Box
+            component="p"
+            sx={{
+              fontSize: "20px",
+              color: "white",
+              fontWeight: "bold",
+            }}
+          >
+            <Box component="span">{userName}</Box>
+            <Box
+              component="span"
+              sx={{ pl: "5px", color: THEME_COLOR.grey500 }}
+            >
+              #{tag}
+            </Box>
+          </Box>
+          <Box
+            component="p"
+            sx={{
+              fontSize: "12px",
+              color: THEME_COLOR.grey600,
+              fontWeight: "600",
+              pt: "5px",
+            }}
+          >
+            prev. {prevName}
+          </Box>
         </Box>
       </Box>
       {renderSummonerTierCard(QueueType.RANKED_SOLO_5x5, "솔로 랭크")}
