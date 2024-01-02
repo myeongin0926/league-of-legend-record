@@ -10,7 +10,7 @@ const SummonerSearchPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [summonerInfo, setSummonerInfo] = useState<SummonerInfo | null>(null);
 
-  const splitSummonerName = (summonerName: string): [string, string] => {
+  const splitQueryName = (summonerName: string): [string, string] => {
     const firstDashIndex: number = summonerName.indexOf("-");
     if (firstDashIndex !== -1) {
       const userName: string = summonerName.slice(0, firstDashIndex);
@@ -20,7 +20,7 @@ const SummonerSearchPage: React.FC = () => {
     return [summonerName, ""];
   };
 
-  const [searchName, searchTag] = splitSummonerName(summonerName || "");
+  const [searchName, searchTag] = splitQueryName(summonerName || "");
 
   const getSummonerInfo = async (puuid: string) => {
     try {
@@ -67,7 +67,6 @@ const SummonerSearchPage: React.FC = () => {
         }
       }
     };
-
     fetchData();
   }, [summonerName, searchName, searchTag]);
 
