@@ -10,7 +10,37 @@ const SummonerSearchPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [summonerInfo, setSummonerInfo] = useState<SummonerInfo | null>(null);
 
-  const getPuuid = async (userName: string, tag: string): Promise<string> => {
+  const splitSummonerName = (summonerName: string): [string, string] => {
+    const firstDashIndex: number = summonerName.indexOf("-");
+    if (firstDashIndex !== -1) {
+      const userName: string = summonerName.slice(0, firstDashIndex);
+      const tag: string = summonerName.slice(firstDashIndex + 1);
+      return [userName, tag];
+    }
+    return [summonerName, ""];
+  };
+
+  const [searchName, searchTag] = splitSummonerName(summonerName || "");
+
+  const getSummonerInfo = async (puuid: string) => {
+    try {
+      const summonerInfo = await apiKrRequester
+        .get(`/lol/summoner/v4/summoners/by-puuid/${puuid}`)
+        .then((res) => res.data);
+      const { gameName, tagLine } = await apiAsiaRequester
+        .get(`/riot/account/v1/accounts/by-puuid/${puuid}`)
+        .then((res) => res.data);
+      return {
+        ...summonerInfo,
+        summonerName: gameName,
+        summonerTag: tagLine,
+      };
+    } catch (error) {
+      throw new Error("소환사 정보 못 불러옴");
+    }
+  };
+
+  const getSummonerPuuid = async (userName: string, tag: string) => {
     try {
       const {
         data: { puuid },
@@ -23,53 +53,23 @@ const SummonerSearchPage: React.FC = () => {
     }
   };
 
-  const splitSummonerName = (summonerName: string): [string, string] => {
-    const firstDashIndex: number = summonerName.indexOf("-");
-    if (firstDashIndex !== -1) {
-      const userName: string = summonerName.slice(0, firstDashIndex);
-      const tag: string = summonerName.slice(firstDashIndex + 1);
-      return [userName, tag];
-    }
-    return [summonerName, ""];
-  };
-
-  const [userName, tag] = splitSummonerName(summonerName || "");
-
-  const getSummonerInfo = async (puuid: string) => {
-    try {
-      return await apiKrRequester.get(
-        `/lol/summoner/v4/summoners/by-puuid/${puuid}`,
-      );
-    } catch (error) {
-      throw new Error("소환사 정보 못 불러옴");
-    }
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       if (summonerName) {
-        if (userName && tag) {
+        if (searchName && searchTag) {
           try {
-            const puuid = await getPuuid(userName, tag);
-            const summonerInfo = await getSummonerInfo(puuid).then(
-              (res) => res.data,
-            );
-            console.log(summonerInfo);
-            setSummonerInfo({
-              ...summonerInfo,
-              userName:
-                summonerInfo.name === userName ? summonerInfo.name : userName,
-              tag,
-            });
+            const puuid = await getSummonerPuuid(searchName, searchTag);
+            const summonerInfo = await getSummonerInfo(puuid);
+            setSummonerInfo(summonerInfo);
           } catch (error) {
-            console.error(error);
+            throw new Error("useEffect 에러");
           }
         }
       }
     };
 
     fetchData();
-  }, [summonerName, userName, tag]);
+  }, [summonerName, searchName, searchTag]);
 
   return (
     <Container maxWidth="lg">

@@ -6,7 +6,8 @@ export interface SummonerInfo {
   puuid: string;
   revisionDate: number;
   summonerLevel: number;
-  userName: string;
+  summonerName: string;
+  summonerTag: string;
   tag: string;
 }
 

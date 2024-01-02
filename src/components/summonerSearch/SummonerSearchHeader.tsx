@@ -17,18 +17,11 @@ interface Props {
 }
 
 const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
-  const {
-    userName,
-    profileIconId,
-    summonerLevel,
-    tag,
-    id,
-    name: prevName,
-  } = summonerInfo;
+  const { summonerName, summonerTag, profileIconId, summonerLevel, name, id } =
+    summonerInfo;
   const [summonerRanksInfo, setSummonerRanksInfo] = useState<SummonerRanksInfo>(
     {},
   );
-
   useEffect(() => {
     const fetchSummonerRanksInfo = async () => {
       try {
@@ -116,12 +109,12 @@ const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
               fontWeight: "bold",
             }}
           >
-            <Box component="span">{userName}</Box>
+            <Box component="span">{summonerName}</Box>
             <Box
               component="span"
               sx={{ pl: "5px", color: THEME_COLOR.grey500 }}
             >
-              #{tag}
+              #{summonerTag}
             </Box>
           </Box>
           <Box
@@ -133,7 +126,7 @@ const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
               pt: "5px",
             }}
           >
-            prev. {prevName}
+            prev. {name}
           </Box>
         </Box>
       </Box>
