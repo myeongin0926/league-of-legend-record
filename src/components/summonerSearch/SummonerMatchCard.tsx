@@ -3,7 +3,10 @@ import { Box } from "@mui/material";
 import { SummonerMatchData, SummonerInfo } from "../../types/SummonerType";
 import { THEME_COLOR } from "../../theme";
 import MATCH from "../../constants/Match";
-import { calculateTimeElapsed } from "../../\butils/Calculate";
+import {
+  calculateTimeElapsed,
+  calculateGameDuration,
+} from "../../\butils/Calculate";
 
 interface Props {
   matchData: SummonerMatchData;
@@ -18,17 +21,14 @@ const SummonerMatchCard: React.FC<Props> = ({ matchData, summonerInfo }) => {
   console.log(currentSummonerMatchData, matchData);
 
   const { win } = currentSummonerMatchData;
-  const { queueId, gameEndTimestamp } = matchData.info;
+  const { queueId, gameEndTimestamp, gameDuration } = matchData.info;
   const backColor = win ? THEME_COLOR.lightBlue100 : THEME_COLOR.red100;
   const winColor = win ? THEME_COLOR.lightBlue600 : THEME_COLOR.red600;
   const gameResult = win ? MATCH.RESULT.win : MATCH.RESULT.lose;
   const gameType = MATCH.GAME_TYPE[queueId];
+  const timeElapsed = calculateTimeElapsed(gameEndTimestamp);
+  const timeDuration = calculateGameDuration(gameDuration);
 
-  const gameEndDate = 1704242925978; // 게임 종료 날짜 (epoch time)
-  const timeElapsed = calculateTimeElapsed(gameEndDate);
-  console.log(timeElapsed);
-
-  console.log(gameType, new Date(gameEndTimestamp));
   return (
     <Box
       component="li"
@@ -36,14 +36,36 @@ const SummonerMatchCard: React.FC<Props> = ({ matchData, summonerInfo }) => {
         backgroundColor: backColor,
         height: "100px",
         borderRadius: "3px",
-        padding: "10px 20px",
+        padding: "10px 15px",
         borderLeft: `7px solid ${winColor}`,
+        mb: "10px",
       }}
     >
-      <Box>
-        <Box>{gameResult}</Box>
-        <Box>{gameType}</Box>
-        <Box>{calculateTimeElapsed(gameEndTimestamp)}</Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+          color: THEME_COLOR.grey600,
+          gap: "3px",
+          fontSize: "14px",
+        }}
+      >
+        <Box sx={{ color: winColor, fontWeight: "bold", fontSize: "16px" }}>
+          {gameType}
+        </Box>
+        <Box sx={{ flex: 1 }}>{timeElapsed}</Box>
+        <Box
+          sx={{
+            fontWeight: "600",
+            fontSize: "15px",
+            color: THEME_COLOR.grey600,
+            opacity: 0.75,
+          }}
+        >
+          {gameResult}
+        </Box>
+        <Box>{timeDuration}</Box>
       </Box>
     </Box>
   );

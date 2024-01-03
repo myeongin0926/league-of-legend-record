@@ -22,9 +22,9 @@ const THEME_COLOR = {
   grey800: grey[800],
   grey900: grey[900],
   boxShadowInset: "#00000767",
-  lightBlue100: lightBlue[100],
+  lightBlue100: "#ecf9ff",
   lightBlue600: lightBlue[600],
-  red100: red[100],
+  red100: "#fdf1f2",
   red600: red[600],
   TIER: {
     IRON: grey[600],
