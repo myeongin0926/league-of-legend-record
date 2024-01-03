@@ -16,9 +16,14 @@ const SUMMONER_QUEUE_TYPE = Object.freeze({
   RANKED_FLEX_SR: "자유 랭크",
 });
 
+const SUMMONER_MATCH = Object.freeze({
+  REQUEST_SIZE: 10,
+});
+
 const SUMMONER = {
   SUMMONER_TIER,
   SUMMONER_QUEUE_TYPE,
+  SUMMONER_MATCH,
 };
 
 export default SUMMONER;

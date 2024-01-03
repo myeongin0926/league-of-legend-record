@@ -22,6 +22,7 @@ const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
   const [summonerRanksInfo, setSummonerRanksInfo] = useState<SummonerRanksInfo>(
     {},
   );
+
   useEffect(() => {
     const fetchSummonerRanksInfo = async () => {
       try {
@@ -42,6 +43,7 @@ const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
 
     fetchSummonerRanksInfo();
   }, [id]);
+
   const renderSummonerTierCard = (
     queueType: QueueType | undefined,
     queueName: QueueName,

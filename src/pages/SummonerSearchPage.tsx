@@ -1,69 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Container } from "@mui/material";
-import { apiAsiaRequester, apiKrRequester } from "../api";
+import { Container, Box } from "@mui/material";
+import {
+  getSummonerMatchInfo,
+  getSummonerInfo,
+  getSummonerPuuid,
+} from "../api/summonerApis";
 import SummonerSearchHeader from "../components/summonerSearch/SummonerSearchHeader";
-import { SummonerInfo } from "../types/SummonerType";
+import { SummonerInfo, SummonerMatchInfo } from "../types/SummonerType";
+import SummonerMatchCard from "../components/summonerSearch/SummonerMatchCard";
 
 const SummonerSearchPage: React.FC = () => {
   const { summonerName } = useParams<{ summonerName?: string }>();
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [summonerInfo, setSummonerInfo] = useState<SummonerInfo | null>(null);
+  const [summonerMatchInfo, setSummonerMatchInfo] = useState<SummonerMatchInfo>(
+    {
+      matchList: [],
+      matchId: [],
+    },
+  );
 
   const splitQueryName = (summonerName: string): [string, string] => {
     const firstDashIndex: number = summonerName.indexOf("-");
-    if (firstDashIndex !== -1) {
-      const userName: string = summonerName.slice(0, firstDashIndex);
-      const tag: string = summonerName.slice(firstDashIndex + 1);
-      return [userName, tag];
-    }
-    return [summonerName, ""];
+    const userName: string = summonerName.slice(0, firstDashIndex);
+    const tag: string = summonerName.slice(firstDashIndex + 1);
+    return [userName, tag];
   };
 
   const [searchName, searchTag] = splitQueryName(summonerName || "");
 
-  const getSummonerInfo = async (puuid: string) => {
-    try {
-      const summonerInfo = await apiKrRequester
-        .get(`/lol/summoner/v4/summoners/by-puuid/${puuid}`)
-        .then((res) => res.data);
-      const { gameName, tagLine } = await apiAsiaRequester
-        .get(`/riot/account/v1/accounts/by-puuid/${puuid}`)
-        .then((res) => res.data);
-      return {
-        ...summonerInfo,
-        summonerName: gameName,
-        summonerTag: tagLine,
-      };
-    } catch (error) {
-      throw new Error("소환사 정보 못 불러옴");
-    }
-  };
-
-  const getSummonerPuuid = async (userName: string, tag: string) => {
-    try {
-      const {
-        data: { puuid },
-      } = await apiAsiaRequester.get(
-        `/riot/account/v1/accounts/by-riot-id/${userName}/${tag}`,
-      );
-      return puuid;
-    } catch (error) {
-      throw new Error("유저 아이디 못 받아옴");
-    }
+  const updateSummonerMatchInfo = async (puuid: string) => {
+    const matchInfo = await getSummonerMatchInfo(puuid, summonerMatchInfo);
+    setSummonerMatchInfo(matchInfo);
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      if (summonerName) {
-        if (searchName && searchTag) {
-          try {
-            const puuid = await getSummonerPuuid(searchName, searchTag);
-            const summonerInfo = await getSummonerInfo(puuid);
-            setSummonerInfo(summonerInfo);
-          } catch (error) {
-            throw new Error("useEffect 에러");
-          }
+      if (searchName && searchTag) {
+        try {
+          const puuid = await getSummonerPuuid(searchName, searchTag);
+          const summonerInfo = await getSummonerInfo(puuid);
+          await updateSummonerMatchInfo(puuid);
+          setSummonerInfo(summonerInfo);
+        } catch (error) {
+          throw new Error("useEffect 에러");
         }
       }
     };
@@ -72,7 +53,28 @@ const SummonerSearchPage: React.FC = () => {
 
   return (
     <Container maxWidth="lg">
-      {summonerInfo && <SummonerSearchHeader summonerInfo={summonerInfo} />}
+      {summonerInfo && (
+        <>
+          {" "}
+          <SummonerSearchHeader summonerInfo={summonerInfo} />
+          <button
+            onClick={() => updateSummonerMatchInfo(summonerInfo.puuid)}
+            type="submit"
+          >
+            hello
+          </button>
+          <Box component="ul">
+            {" "}
+            {summonerMatchInfo.matchList.map((matchInfo) => (
+              <SummonerMatchCard
+                key={matchInfo.info.gameId}
+                matchData={matchInfo}
+                summonerInfo={summonerInfo}
+              />
+            ))}
+          </Box>
+        </>
+      )}
     </Container>
   );
 };
