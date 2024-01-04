@@ -8,8 +8,7 @@ import {
   QueueName,
 } from "../../types/SummonerType";
 import { getProfileIconUrl, getPublicUrl } from "../../utils/MessageFormat";
-import { apiKrRequester } from "../../api";
-import SummonerTierCard from "./SummonerTierCard";
+
 import { THEME_COLOR } from "../../theme";
 
 interface Props {
@@ -19,40 +18,6 @@ interface Props {
 const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
   const { summonerName, summonerTag, profileIconId, summonerLevel, name, id } =
     summonerInfo;
-  const [summonerRanksInfo, setSummonerRanksInfo] = useState<SummonerRanksInfo>(
-    {},
-  );
-
-  useEffect(() => {
-    const fetchSummonerRanksInfo = async () => {
-      try {
-        const response = await apiKrRequester(
-          `/lol/league/v4/entries/by-summoner/${id}`,
-        );
-        const ranksInfo: SummonerRanksInfo = {};
-        response.data.forEach((item: SummonerRankInfo) => {
-          if (Object.values(QueueType).includes(item.queueType as QueueType)) {
-            ranksInfo[item.queueType] = item;
-          }
-        });
-        setSummonerRanksInfo(ranksInfo);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchSummonerRanksInfo();
-  }, [id]);
-
-  const renderSummonerTierCard = (
-    queueType: QueueType | undefined,
-    queueName: QueueName,
-  ) => {
-    if (!queueType) return null;
-
-    const rankInfo = summonerRanksInfo[queueType];
-    return <SummonerTierCard rankInfo={rankInfo} queueName={queueName} />;
-  };
   const profileIconUrl = getProfileIconUrl(profileIconId);
 
   return (
@@ -132,8 +97,6 @@ const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
           </Box>
         </Box>
       </Box>
-      {renderSummonerTierCard(QueueType.RANKED_SOLO_5x5, "솔로 랭크")}
-      {renderSummonerTierCard(QueueType.RANKED_FLEX_SR, "자유 랭크")}
     </Box>
   );
 };

@@ -9,6 +9,7 @@ import {
 import SummonerSearchHeader from "../components/summonerSearch/SummonerSearchHeader";
 import { SummonerInfo, SummonerMatchInfo } from "../types/SummonerType";
 import SummonerMatchCard from "../components/summonerSearch/SummonerMatchCard";
+import SummonerSearchSide from "../components/summonerSearch/SummonerSearchSide";
 
 const SummonerSearchPage: React.FC = () => {
   const { summonerName } = useParams<{ summonerName?: string }>();
@@ -63,15 +64,19 @@ const SummonerSearchPage: React.FC = () => {
           >
             hello
           </button>
-          <Box component="ul">
+          <Box sx={{ display: "flex", gap: "10px" }}>
             {" "}
-            {summonerMatchInfo.matchList.map((matchInfo) => (
-              <SummonerMatchCard
-                key={matchInfo.info.gameId}
-                matchData={matchInfo}
-                summonerInfo={summonerInfo}
-              />
-            ))}
+            <SummonerSearchSide summonerInfo={summonerInfo} />
+            <Box component="ul" sx={{ flex: 1 }}>
+              {" "}
+              {summonerMatchInfo.matchList.map((matchInfo) => (
+                <SummonerMatchCard
+                  key={matchInfo.info.gameId}
+                  matchData={matchInfo}
+                  summonerInfo={summonerInfo}
+                />
+              ))}
+            </Box>
           </Box>
         </>
       )}
