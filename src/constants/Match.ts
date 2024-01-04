@@ -1,4 +1,4 @@
-const GAME_TYPE = {
+const GAME_TYPE = Object.freeze({
   400: "빠른 대전",
   420: "솔로 랭크",
   430: "빠른 대전",
@@ -18,12 +18,13 @@ const GAME_TYPE = {
   2000: "튜토리얼",
   2010: "튜토리얼",
   2020: "튜토리얼",
-};
+});
 
-const RESULT = {
+const RESULT = Object.freeze({
   win: "승리",
   lose: "패배",
-};
+});
+
 const MATCH = {
   GAME_TYPE,
   RESULT,

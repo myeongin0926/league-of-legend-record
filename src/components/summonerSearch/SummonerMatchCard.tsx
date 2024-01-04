@@ -1,6 +1,10 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { SummonerMatchData, SummonerInfo } from "../../types/SummonerType";
+import {
+  SummonerMatchData,
+  SummonerInfo,
+  SummonerSpellInfo,
+} from "../../types/SummonerType";
 import { THEME_COLOR } from "../../theme";
 import MATCH from "../../constants/Match";
 import {
@@ -12,13 +16,19 @@ import ChampionIcon from "../ChampionIcon";
 interface Props {
   matchData: SummonerMatchData;
   summonerInfo: SummonerInfo;
+  spellData: SummonerSpellInfo[] | null;
 }
 
-const SummonerMatchCard: React.FC<Props> = ({ matchData, summonerInfo }) => {
+const SummonerMatchCard: React.FC<Props> = ({
+  matchData,
+  summonerInfo,
+  spellData,
+}) => {
+  if (!spellData) return null;
+
   const [currentSummonerMatchData] = matchData.info.participants.filter(
     (summoner) => summoner.puuid === summonerInfo.puuid,
   );
-
   const { win, championName, champLevel } = currentSummonerMatchData;
   const { queueId, gameEndTimestamp, gameDuration } = matchData.info;
   const backColor = win ? THEME_COLOR.lightBlue100 : THEME_COLOR.red100;
@@ -27,7 +37,8 @@ const SummonerMatchCard: React.FC<Props> = ({ matchData, summonerInfo }) => {
   const gameType = MATCH.GAME_TYPE[queueId];
   const timeElapsed = calculateTimeElapsed(gameEndTimestamp);
   const timeDuration = calculateGameDuration(gameDuration);
-  console.log(currentSummonerMatchData, matchData);
+
+  console.log(currentSummonerMatchData, matchData, spellData);
   return (
     <Box
       component="li"

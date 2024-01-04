@@ -20,10 +20,12 @@ const SummonerTierCard: React.FC<Props> = ({ rankInfo, queueName }) => {
       <Box
         sx={{
           display: "flex",
-          width: "400px",
+          width: "100%",
           border: 1,
           borderColor: THEME_COLOR.grey300,
-          height: "110px",
+          height: "100px",
+          mb: "5px",
+          borderRadius: "5px",
         }}
       >
         <Box
@@ -87,10 +89,12 @@ const SummonerTierCard: React.FC<Props> = ({ rankInfo, queueName }) => {
     <Box
       sx={{
         display: "flex",
-        width: "400px",
+        width: "100%",
         border: 1,
         borderColor: THEME_COLOR.grey300,
-        height: "110px",
+        height: "100px",
+        mb: "5px",
+        borderRadius: "5px",
       }}
     >
       <Box
@@ -115,13 +119,13 @@ const SummonerTierCard: React.FC<Props> = ({ rankInfo, queueName }) => {
           width: "100%",
           flexDirection: "column",
           justifyContent: "center",
-          gap: 0.8,
+          gap: 1,
         }}
       >
         <Box
           component="span"
           sx={{
-            fontSize: "13px",
+            fontSize: "12px",
             color: THEME_COLOR.grey500,
             fontWeight: "600",
           }}
@@ -133,8 +137,8 @@ const SummonerTierCard: React.FC<Props> = ({ rankInfo, queueName }) => {
             component="span"
             sx={{
               color: THEME_COLOR.TIER[tier],
-              fontSize: "22px",
-              fontWeight: "600",
+              fontSize: "20px",
+              fontWeight: "800",
               letterSpacing: ".5px",
             }}
           >

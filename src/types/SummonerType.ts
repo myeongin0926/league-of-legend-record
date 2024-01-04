@@ -98,3 +98,7 @@ export interface SummonerRanksInfo {
   [QueueType.RANKED_SOLO_5x5]?: SummonerRankInfo;
   [QueueType.RANKED_FLEX_SR]?: SummonerRankInfo;
 }
+
+export type SummonerSpellInfo = {
+  id: "string";
+};

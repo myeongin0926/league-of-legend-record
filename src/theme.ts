@@ -43,7 +43,7 @@ const THEME_COLOR = {
 const THEME_GLOBAL_STYLES = {
   "*": {
     verticalAlign: "text-bottom",
-    fontFamily: "Nanum Gothic, sans-serif !important",
+    fontFamily: "Roboto, sans-serif",
   },
 };
 

@@ -20,6 +20,7 @@ module.exports = {
     "import/no-extraneous-dependencies": 0,
     "no-shadow": 0,
     "react/prop-types": 0,
+    "no-nested-ternary": 0,
     "react/jsx-filename-extension": [
       2,
       { extensions: [".js", ".jsx", ".ts", ".tsx"] },

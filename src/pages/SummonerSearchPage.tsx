@@ -5,22 +5,37 @@ import {
   getSummonerMatchInfo,
   getSummonerInfo,
   getSummonerPuuid,
+  getSummonerSpellData,
 } from "../api/summonerApis";
+import {
+  SummonerSpellInfo,
+  SummonerInfo,
+  SummonerMatchInfo,
+} from "../types/SummonerType";
 import SummonerSearchHeader from "../components/summonerSearch/SummonerSearchHeader";
-import { SummonerInfo, SummonerMatchInfo } from "../types/SummonerType";
 import SummonerMatchCard from "../components/summonerSearch/SummonerMatchCard";
 import SummonerSearchSide from "../components/summonerSearch/SummonerSearchSide";
+import useCustomQuery from "../hooks/useCustomQuery";
 
 const SummonerSearchPage: React.FC = () => {
   const { summonerName } = useParams<{ summonerName?: string }>();
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [summonerInfo, setSummonerInfo] = useState<SummonerInfo | null>(null);
+  const [summonerData, setSummonerData] = useState<SummonerInfo | null>(null);
   const [summonerMatchInfo, setSummonerMatchInfo] = useState<SummonerMatchInfo>(
     {
       matchList: [],
       matchId: [],
     },
   );
+  const [spellData, setSpellData] = useState<SummonerSpellInfo[] | null>(null);
+
+  const updateSummonerSpellData = () => {
+    getSummonerSpellData().then((data: SummonerSpellInfo[]) =>
+      setSpellData(data),
+    );
+  };
+
+  const { tablet } = useCustomQuery();
 
   const splitQueryName = (summonerName: string): [string, string] => {
     const firstDashIndex: number = summonerName.indexOf("-");
@@ -43,7 +58,8 @@ const SummonerSearchPage: React.FC = () => {
           const puuid = await getSummonerPuuid(searchName, searchTag);
           const summonerInfo = await getSummonerInfo(puuid);
           await updateSummonerMatchInfo(puuid);
-          setSummonerInfo(summonerInfo);
+          updateSummonerSpellData();
+          setSummonerData(summonerInfo);
         } catch (error) {
           throw new Error("useEffect 에러");
         }
@@ -54,26 +70,24 @@ const SummonerSearchPage: React.FC = () => {
 
   return (
     <Container maxWidth="lg">
-      {summonerInfo && (
+      {summonerData && (
         <>
-          {" "}
-          <SummonerSearchHeader summonerInfo={summonerInfo} />
+          <SummonerSearchHeader summonerInfo={summonerData} />
           <button
-            onClick={() => updateSummonerMatchInfo(summonerInfo.puuid)}
+            onClick={() => updateSummonerMatchInfo(summonerData.puuid)}
             type="submit"
           >
             hello
           </button>
-          <Box sx={{ display: "flex", gap: "10px" }}>
-            {" "}
-            <SummonerSearchSide summonerInfo={summonerInfo} />
+          <Box sx={{ display: tablet ? "flex" : "block", gap: "10px" }}>
+            <SummonerSearchSide summonerInfo={summonerData} />
             <Box component="ul" sx={{ flex: 1 }}>
-              {" "}
-              {summonerMatchInfo.matchList.map((matchInfo) => (
+              {summonerMatchInfo?.matchList.map((matchInfo) => (
                 <SummonerMatchCard
                   key={matchInfo.info.gameId}
                   matchData={matchInfo}
-                  summonerInfo={summonerInfo}
+                  summonerInfo={summonerData}
+                  spellData={spellData}
                 />
               ))}
             </Box>

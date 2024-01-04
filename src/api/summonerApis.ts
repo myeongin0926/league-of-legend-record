@@ -1,4 +1,9 @@
-import { SummonerMatchInfo, SummonerMatchData } from "../types/SummonerType";
+import axios from "axios";
+import {
+  SummonerMatchInfo,
+  SummonerMatchData,
+  SummonerSpellInfo,
+} from "../types/SummonerType";
 import { apiAsiaRequester, apiKrRequester } from ".";
 import SUMMONER from "../constants/Summoner";
 
@@ -64,4 +69,19 @@ const getSummonerMatchInfo = async (
   }
 };
 
-export { getSummonerInfo, getSummonerPuuid, getSummonerMatchInfo };
+const getSummonerSpellData = async () => {
+  const res = await axios.get(
+    "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/ko_KR/summoner.json",
+  );
+  const { data } = res.data;
+
+  const spellData: SummonerSpellInfo[] = Object.values(data);
+  return spellData;
+};
+
+export {
+  getSummonerInfo,
+  getSummonerPuuid,
+  getSummonerMatchInfo,
+  getSummonerSpellData,
+};

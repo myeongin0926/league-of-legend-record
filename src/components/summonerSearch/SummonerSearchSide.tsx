@@ -9,6 +9,7 @@ import {
   QueueName,
   SummonerInfo,
 } from "../../types/SummonerType";
+import useCustomQuery from "../../hooks/useCustomQuery";
 
 interface Props {
   summonerInfo: SummonerInfo;
@@ -18,7 +19,7 @@ const SummonerSearchSide: React.FC<Props> = ({ summonerInfo }) => {
   const [summonerRanksInfo, setSummonerRanksInfo] = useState<SummonerRanksInfo>(
     {},
   );
-
+  const { deskTop, mobile, tablet } = useCustomQuery();
   const { id } = summonerInfo;
   useEffect(() => {
     const fetchSummonerRanksInfo = async () => {
@@ -50,8 +51,14 @@ const SummonerSearchSide: React.FC<Props> = ({ summonerInfo }) => {
     const rankInfo = summonerRanksInfo[queueType];
     return <SummonerTierCard rankInfo={rankInfo} queueName={queueName} />;
   };
+
   return (
-    <Box>
+    <Box
+      sx={{
+        display: tablet ? "block" : mobile ? "block" : "flex",
+        width: tablet ? "400px" : "100%",
+      }}
+    >
       {renderSummonerTierCard(QueueType.RANKED_SOLO_5x5, "솔로 랭크")}
       {renderSummonerTierCard(QueueType.RANKED_FLEX_SR, "자유 랭크")}
     </Box>

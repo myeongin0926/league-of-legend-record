@@ -42,7 +42,7 @@ const ChampionIcon: React.FC<Props> = ({
             backgroundColor: THEME_COLOR.grey900,
             color: THEME_COLOR.grey100,
             position: "absolute",
-            padding: "5px",
+            padding: "5px 4px 2px 4px",
             borderRadius: "50%",
             fontSize: "12px",
             right: 0,
