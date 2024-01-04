@@ -7,6 +7,7 @@ import {
   calculateTimeElapsed,
   calculateGameDuration,
 } from "../../\butils/Calculate";
+import ChampionIcon from "../ChampionIcon";
 
 interface Props {
   matchData: SummonerMatchData;
@@ -18,9 +19,7 @@ const SummonerMatchCard: React.FC<Props> = ({ matchData, summonerInfo }) => {
     (summoner) => summoner.puuid === summonerInfo.puuid,
   );
 
-  console.log(currentSummonerMatchData, matchData);
-
-  const { win } = currentSummonerMatchData;
+  const { win, championName, champLevel } = currentSummonerMatchData;
   const { queueId, gameEndTimestamp, gameDuration } = matchData.info;
   const backColor = win ? THEME_COLOR.lightBlue100 : THEME_COLOR.red100;
   const winColor = win ? THEME_COLOR.lightBlue600 : THEME_COLOR.red600;
@@ -28,17 +27,18 @@ const SummonerMatchCard: React.FC<Props> = ({ matchData, summonerInfo }) => {
   const gameType = MATCH.GAME_TYPE[queueId];
   const timeElapsed = calculateTimeElapsed(gameEndTimestamp);
   const timeDuration = calculateGameDuration(gameDuration);
-
+  console.log(currentSummonerMatchData, matchData);
   return (
     <Box
       component="li"
       sx={{
         backgroundColor: backColor,
-        height: "100px",
+        height: "90px",
         borderRadius: "3px",
         padding: "10px 15px",
         borderLeft: `7px solid ${winColor}`,
         mb: "10px",
+        display: "flex",
       }}
     >
       <Box
@@ -66,6 +66,19 @@ const SummonerMatchCard: React.FC<Props> = ({ matchData, summonerInfo }) => {
           {gameResult}
         </Box>
         <Box>{timeDuration}</Box>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <ChampionIcon
+          championName={championName}
+          championLevel={champLevel}
+          size={60}
+          radius="50%"
+        />
       </Box>
     </Box>
   );

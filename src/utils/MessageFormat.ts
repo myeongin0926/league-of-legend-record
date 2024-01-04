@@ -4,6 +4,9 @@ import SUMMONER from "../constants/Summoner";
 const getProfileIconUrl = (profileIconId: number) =>
   `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/${profileIconId}.png`;
 
+const getChampionIconUrl = (championName: string) =>
+  `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/champion/${championName}.png`;
+
 const getPublicUrl = (url: string) => `${process.env.PUBLIC_URL}${url}`;
 
 const getSummonerTierName = (tierName: Tier, tierRank: TierRank) => {
@@ -20,4 +23,5 @@ export {
   getPublicUrl,
   getSummonerTierName,
   getCommaSeparatedNumber,
+  getChampionIconUrl,
 };

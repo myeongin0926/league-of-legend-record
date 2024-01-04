@@ -17,7 +17,7 @@ const SUMMONER_QUEUE_TYPE = Object.freeze({
 });
 
 const SUMMONER_MATCH = Object.freeze({
-  REQUEST_SIZE: 10,
+  REQUEST_SIZE: 1,
 });
 
 const SUMMONER = {
