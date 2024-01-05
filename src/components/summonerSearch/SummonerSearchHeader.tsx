@@ -34,7 +34,7 @@ const SummonerSearchHeader: React.FC<Props> = ({ summonerInfo }) => {
               borderRadius: "50%",
             }}
             src={profileIconUrl}
-            alt="SummonerProfileIcon"
+            alt="summonerProfileIcon"
           />
           <Box
             component="div"

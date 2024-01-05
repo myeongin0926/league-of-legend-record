@@ -87,6 +87,8 @@ type MatchParticipant = {
   win: boolean;
   championName: string;
   champLevel: number;
+  summoner1Id: number;
+  summoner2Id: number;
 };
 
 export interface SummonerMatchInfo {
@@ -101,4 +103,5 @@ export interface SummonerRanksInfo {
 
 export type SummonerSpellInfo = {
   id: "string";
+  key: "string";
 };

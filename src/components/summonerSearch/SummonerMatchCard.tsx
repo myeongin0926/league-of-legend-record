@@ -12,6 +12,7 @@ import {
   calculateGameDuration,
 } from "../../\butils/Calculate";
 import ChampionIcon from "../ChampionIcon";
+import SummonerSpellIcon from "../SummonerSpellIcon";
 
 interface Props {
   matchData: SummonerMatchData;
@@ -29,7 +30,8 @@ const SummonerMatchCard: React.FC<Props> = ({
   const [currentSummonerMatchData] = matchData.info.participants.filter(
     (summoner) => summoner.puuid === summonerInfo.puuid,
   );
-  const { win, championName, champLevel } = currentSummonerMatchData;
+  const { win, championName, champLevel, summoner1Id, summoner2Id } =
+    currentSummonerMatchData;
   const { queueId, gameEndTimestamp, gameDuration } = matchData.info;
   const backColor = win ? THEME_COLOR.lightBlue100 : THEME_COLOR.red100;
   const winColor = win ? THEME_COLOR.lightBlue600 : THEME_COLOR.red600;
@@ -38,7 +40,6 @@ const SummonerMatchCard: React.FC<Props> = ({
   const timeElapsed = calculateTimeElapsed(gameEndTimestamp);
   const timeDuration = calculateGameDuration(gameDuration);
 
-  console.log(currentSummonerMatchData, matchData, spellData);
   return (
     <Box
       component="li"
@@ -87,10 +88,12 @@ const SummonerMatchCard: React.FC<Props> = ({
         <ChampionIcon
           championName={championName}
           championLevel={champLevel}
-          size={60}
+          size="60px"
           radius="50%"
         />
       </Box>
+      <SummonerSpellIcon spellNumber={summoner1Id} spellData={spellData} />
+      <SummonerSpellIcon spellNumber={summoner2Id} spellData={spellData} />
     </Box>
   );
 };

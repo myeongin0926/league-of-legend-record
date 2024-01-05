@@ -5,7 +5,7 @@ import { THEME_COLOR } from "../theme";
 
 interface Props {
   championName: string;
-  size?: number;
+  size?: string;
   radius?: string;
   championLevel?: number;
 }
@@ -34,6 +34,7 @@ const ChampionIcon: React.FC<Props> = ({
             width: "100%",
             transform: "scale(1.15)",
           }}
+          alt="championIcon"
         />
       </Box>
       {championLevel && (
@@ -58,7 +59,7 @@ const ChampionIcon: React.FC<Props> = ({
 };
 
 ChampionIcon.defaultProps = {
-  size: 30,
+  size: "30px",
   radius: "5px",
   championLevel: undefined,
 };

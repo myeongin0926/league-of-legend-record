@@ -40,7 +40,7 @@ const SummonerTierCard: React.FC<Props> = ({ rankInfo, queueName }) => {
             component="img"
             sx={{ width: "75px", objectFit: "contain" }}
             src={getPublicUrl("/images/tier/unRanked.png")}
-            alt="SummonerUnRankedIcon"
+            alt="summonerUnRankedIcon"
           />
         </Box>
         <Box
@@ -109,7 +109,7 @@ const SummonerTierCard: React.FC<Props> = ({ rankInfo, queueName }) => {
           component="img"
           sx={{ width: "75px", objectFit: "contain" }}
           src={tierImageUrl}
-          alt="SummonerTierIcon"
+          alt="summonerTierIcon"
         />
       </Box>
       <Box
