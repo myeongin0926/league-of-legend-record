@@ -11,8 +11,8 @@ import {
   calculateTimeElapsed,
   calculateGameDuration,
 } from "../../\butils/Calculate";
-import ChampionIcon from "../ChampionIcon";
-import SummonerSpellIcon from "../SummonerSpellIcon";
+import ChampionIcon from "../icon/ChampionIcon";
+import SummonerSpellIcon from "../icon/SummonerSpellIcon";
 
 interface Props {
   matchData: SummonerMatchData;

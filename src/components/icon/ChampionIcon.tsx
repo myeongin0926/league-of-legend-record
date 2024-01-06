@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { getChampionIconUrl } from "../\butils/MessageFormat";
-import { THEME_COLOR } from "../theme";
+import { getChampionIconUrl } from "../../utils/MessageFormat";
+import { THEME_COLOR } from "../../theme";
 
 interface Props {
   championName: string;

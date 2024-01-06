@@ -26,6 +26,7 @@ const THEME_COLOR = {
   lightBlue600: lightBlue[600],
   red100: "#fdf1f2",
   red600: red[600],
+  yellow500: yellow[500],
   TIER: {
     IRON: grey[600],
     BRONZE: brown[600],

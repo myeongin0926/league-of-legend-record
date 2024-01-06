@@ -102,6 +102,8 @@ export interface SummonerRanksInfo {
 }
 
 export type SummonerSpellInfo = {
-  id: "string";
-  key: "string";
+  id: string;
+  key: string;
+  name: string;
+  description: string;
 };
