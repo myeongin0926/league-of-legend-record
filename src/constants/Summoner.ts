@@ -20,10 +20,18 @@ const SUMMONER_MATCH = Object.freeze({
   REQUEST_SIZE: 1,
 });
 
+const SUMMONER_RUNE = Object.freeze({
+  PRIMARY: "primary",
+  SUB: "sub",
+  PRIMARY_STYLE: "primaryStyle",
+  SUB_STYLE: "subStyle",
+});
+
 const SUMMONER = {
   SUMMONER_TIER,
   SUMMONER_QUEUE_TYPE,
   SUMMONER_MATCH,
+  SUMMONER_RUNE,
 };
 
 export default SUMMONER;

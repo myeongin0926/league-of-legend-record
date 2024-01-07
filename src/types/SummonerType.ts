@@ -89,6 +89,7 @@ type MatchParticipant = {
   champLevel: number;
   summoner1Id: number;
   summoner2Id: number;
+  perks: SummonerRuneData;
 };
 
 export interface SummonerMatchInfo {
@@ -106,4 +107,28 @@ export type SummonerSpellInfo = {
   key: string;
   name: string;
   description: string;
+};
+
+type Perk = {
+  icon: string;
+  id: number;
+  key: string;
+  shortDesc: string;
+};
+
+export type PerkInfo = {
+  id: number;
+  icon: string;
+  name: string;
+  slots: { runes: Perk[] }[];
+};
+
+export type Style = {
+  description: string;
+  style: number;
+  selections: { perk: number }[];
+};
+
+export type SummonerRuneData = {
+  styles: Style[];
 };

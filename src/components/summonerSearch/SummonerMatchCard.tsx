@@ -4,6 +4,7 @@ import {
   SummonerMatchData,
   SummonerInfo,
   SummonerSpellInfo,
+  PerkInfo,
 } from "../../types/SummonerType";
 import { THEME_COLOR } from "../../theme";
 import MATCH from "../../constants/Match";
@@ -13,24 +14,27 @@ import {
 } from "../../\butils/Calculate";
 import ChampionIcon from "../icon/ChampionIcon";
 import SummonerSpellIcon from "../icon/SummonerSpellIcon";
+import SummonerPerkIcon from "../icon/SummonerPerkIcon";
 
 interface Props {
   matchData: SummonerMatchData;
   summonerInfo: SummonerInfo;
   spellData: SummonerSpellInfo[] | null;
+  perkData: PerkInfo[] | null;
 }
 
 const SummonerMatchCard: React.FC<Props> = ({
   matchData,
   summonerInfo,
   spellData,
+  perkData,
 }) => {
-  if (!spellData) return null;
-
+  if (!spellData || !perkData) return null;
   const [currentSummonerMatchData] = matchData.info.participants.filter(
     (summoner) => summoner.puuid === summonerInfo.puuid,
   );
-  const { win, championName, champLevel, summoner1Id, summoner2Id } =
+  // console.log(currentSummonerMatchData, matchData, perkData);
+  const { win, championName, champLevel, summoner1Id, summoner2Id, perks } =
     currentSummonerMatchData;
   const { queueId, gameEndTimestamp, gameDuration } = matchData.info;
   const backColor = win ? THEME_COLOR.lightBlue100 : THEME_COLOR.red100;
@@ -94,6 +98,16 @@ const SummonerMatchCard: React.FC<Props> = ({
       </Box>
       <SummonerSpellIcon spellNumber={summoner1Id} spellData={spellData} />
       <SummonerSpellIcon spellNumber={summoner2Id} spellData={spellData} />
+      <SummonerPerkIcon
+        perkData={perkData}
+        summonerPerkData={perks}
+        type="primary"
+      />
+      <SummonerPerkIcon
+        perkData={perkData}
+        summonerPerkData={perks}
+        type="sub"
+      />
     </Box>
   );
 };

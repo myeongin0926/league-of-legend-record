@@ -6,11 +6,13 @@ import {
   getSummonerInfo,
   getSummonerPuuid,
   getSummonerSpellData,
+  getSummonerPerkData,
 } from "../api/summonerApis";
 import {
   SummonerSpellInfo,
   SummonerInfo,
   SummonerMatchInfo,
+  PerkInfo,
 } from "../types/SummonerType";
 import SummonerSearchHeader from "../components/summonerSearch/SummonerSearchHeader";
 import SummonerMatchCard from "../components/summonerSearch/SummonerMatchCard";
@@ -28,11 +30,16 @@ const SummonerSearchPage: React.FC = () => {
     },
   );
   const [spellData, setSpellData] = useState<SummonerSpellInfo[] | null>(null);
+  const [perkData, setPerkData] = useState<PerkInfo[] | null>(null);
 
   const updateSummonerSpellData = () => {
     getSummonerSpellData().then((data: SummonerSpellInfo[]) =>
       setSpellData(data),
     );
+  };
+
+  const updateSummonerPerkData = () => {
+    getSummonerPerkData().then((data: PerkInfo[]) => setPerkData(data));
   };
 
   const { tablet } = useCustomQuery();
@@ -59,6 +66,7 @@ const SummonerSearchPage: React.FC = () => {
           const summonerInfo = await getSummonerInfo(puuid);
           await updateSummonerMatchInfo(puuid);
           updateSummonerSpellData();
+          updateSummonerPerkData();
           setSummonerData(summonerInfo);
         } catch (error) {
           throw new Error("useEffect 에러");
@@ -88,6 +96,7 @@ const SummonerSearchPage: React.FC = () => {
                   matchData={matchInfo}
                   summonerInfo={summonerData}
                   spellData={spellData}
+                  perkData={perkData}
                 />
               ))}
             </Box>
