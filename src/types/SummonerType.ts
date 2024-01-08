@@ -109,19 +109,16 @@ export type SummonerSpellInfo = {
   description: string;
 };
 
-type Perk = {
+export interface Perk {
   icon: string;
   id: number;
-  key: string;
-  shortDesc: string;
-};
-
-export type PerkInfo = {
-  id: number;
-  icon: string;
   name: string;
+  shortDesc: string;
+}
+
+export interface PerkInfo extends Perk {
   slots: { runes: Perk[] }[];
-};
+}
 
 export type Style = {
   description: string;

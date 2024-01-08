@@ -14,7 +14,7 @@ import {
 } from "../../\butils/Calculate";
 import ChampionIcon from "../icon/ChampionIcon";
 import SummonerSpellIcon from "../icon/SummonerSpellIcon";
-import SummonerPerkIcon from "../icon/SummonerPerkIcon";
+import SummonerRuneIcon from "../icon/SummonerPerkIcon";
 
 interface Props {
   matchData: SummonerMatchData;
@@ -98,12 +98,12 @@ const SummonerMatchCard: React.FC<Props> = ({
       </Box>
       <SummonerSpellIcon spellNumber={summoner1Id} spellData={spellData} />
       <SummonerSpellIcon spellNumber={summoner2Id} spellData={spellData} />
-      <SummonerPerkIcon
+      <SummonerRuneIcon
         perkData={perkData}
         summonerPerkData={perks}
         type="primary"
       />
-      <SummonerPerkIcon
+      <SummonerRuneIcon
         perkData={perkData}
         summonerPerkData={perks}
         type="sub"
