@@ -54,7 +54,17 @@ function calculateGameDuration(gameDuration: number) {
 
   durationString += `${formattedMinutes}분 ${formattedSeconds}초`;
 
-  return durationString.trim(); // 좌우 공백 제거
+  return durationString.trim();
 }
 
-export { calculateWinRate, calculateTimeElapsed, calculateGameDuration };
+function calculateGrade(kills: number, deaths: number, assists: number) {
+  const death = deaths === 0 ? 1 : deaths;
+  return ((kills + assists) / death).toFixed(2);
+}
+
+export {
+  calculateWinRate,
+  calculateTimeElapsed,
+  calculateGameDuration,
+  calculateGrade,
+};

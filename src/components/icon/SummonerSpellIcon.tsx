@@ -41,7 +41,7 @@ const SummonerSpellIcon: React.FC<Props> = ({ spellNumber, size, radius }) => {
 };
 
 SummonerSpellIcon.defaultProps = {
-  size: "25px",
+  size: "23px",
   radius: "5px",
 };
 export default SummonerSpellIcon;

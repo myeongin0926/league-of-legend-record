@@ -97,6 +97,9 @@ type MatchParticipant = {
   item4: number;
   item5: number;
   item6: number;
+  kills: number;
+  deaths: number;
+  assists: number;
 };
 
 export interface SummonerMatchInfo {
@@ -128,6 +131,7 @@ export type SummonerRuneData = {
 
 export interface ItemInfo {
   name: string;
+  description: string;
 }
 export interface Perk {
   icon: string;

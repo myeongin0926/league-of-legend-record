@@ -13,6 +13,9 @@ const getSpellIconUrl = (spellName: string) =>
 const getRuneIconUrl = (runeUrl: string) =>
   `https://ddragon.leagueoflegends.com/cdn/img/${runeUrl}`;
 
+const getItemIconUrl = (itemNumber: number) =>
+  `https://ddragon.leagueoflegends.com/cdn/13.24.1/img/item/${itemNumber}.png`;
+
 const getPublicUrl = (url: string) => `${process.env.PUBLIC_URL}${url}`;
 
 const getSummonerTierName = (tierName: Tier, tierRank: TierRank) => {
@@ -32,4 +35,5 @@ export {
   getChampionIconUrl,
   getSpellIconUrl,
   getRuneIconUrl,
+  getItemIconUrl,
 };

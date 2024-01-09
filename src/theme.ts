@@ -27,6 +27,7 @@ const THEME_COLOR = {
   red100: "#fdf1f2",
   red600: red[600],
   yellow500: yellow[500],
+  lightGrey: "#00000020",
   TIER: {
     IRON: grey[600],
     BRONZE: brown[600],
@@ -45,6 +46,14 @@ const THEME_GLOBAL_STYLES = {
   "*": {
     verticalAlign: "text-bottom",
     fontFamily: "Roboto, sans-serif",
+  },
+  mainText: {
+    lineHeight: 1.2,
+  },
+  "stats ~ li": {
+    marginBottom: "7px",
+    marginTop: "7px",
+    listStyle: "none",
   },
 };
 

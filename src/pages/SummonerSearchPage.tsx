@@ -5,17 +5,8 @@ import {
   getSummonerMatchInfo,
   getSummonerInfo,
   getSummonerPuuid,
-  getSummonerSpellData,
-  getSummonerPerkData,
-  getSummonerItemData,
 } from "../api/summonerApis";
-import {
-  SummonerSpellInfo,
-  SummonerInfo,
-  SummonerMatchInfo,
-  PerkInfo,
-  ItemInfo,
-} from "../types/SummonerType";
+import { SummonerInfo, SummonerMatchInfo } from "../types/SummonerType";
 import SummonerSearchHeader from "../components/summonerSearch/SummonerSearchHeader";
 import SummonerMatchCard from "../components/summonerSearch/SummonerMatchCard";
 import SummonerSearchSide from "../components/summonerSearch/SummonerSearchSide";
@@ -31,7 +22,6 @@ const SummonerSearchPage: React.FC = () => {
       matchId: [],
     },
   );
-
   const { tablet } = useCustomQuery();
 
   const splitQueryName = (summonerName: string): [string, string] => {
@@ -47,6 +37,7 @@ const SummonerSearchPage: React.FC = () => {
     const matchInfo = await getSummonerMatchInfo(puuid, summonerMatchInfo);
     setSummonerMatchInfo(matchInfo);
   };
+
   useEffect(() => {
     const fetchData = async () => {
       if (searchName && searchTag) {

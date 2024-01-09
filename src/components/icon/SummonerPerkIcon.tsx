@@ -1,12 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { useSelector } from "react-redux";
-import {
-  PerkInfo,
-  SummonerRuneData,
-  Style,
-  Perk,
-} from "../../types/SummonerType";
+import { SummonerRuneData, Style, Perk } from "../../types/SummonerType";
 import SUMMONER from "../../constants/Summoner";
 import CustomTooltip, { TooltipComponent } from "../CustomTooltip";
 import { getRuneIconUrl } from "../../\butils/MessageFormat";
@@ -82,6 +77,6 @@ const SummonerRuneIcon: React.FC<Props> = ({
 };
 
 SummonerRuneIcon.defaultProps = {
-  size: "25px",
+  size: "23px",
 };
 export default SummonerRuneIcon;

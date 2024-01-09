@@ -2,6 +2,7 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import { Box } from "@mui/material";
+import parse from "html-react-parser";
 import { THEME_COLOR } from "../theme";
 
 const CustomTooltip = styled(({ title, children, className }: TooltipProps) => (
@@ -34,7 +35,7 @@ export const TooltipComponent = ({ title, body }: Props) => {
       >
         {title}
       </Box>
-      <Box sx={{ lineHeight: 1.3 }}>{body}</Box>
+      {body && <Box sx={{ lineHeight: 1.3 }}>{parse(body)}</Box>}
     </Box>
   );
 };
