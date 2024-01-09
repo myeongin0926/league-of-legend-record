@@ -1,22 +1,24 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
 import { SummonerSpellInfo } from "../../types/SummonerType";
 import { getSpellIconUrl } from "../../utils/MessageFormat";
 import CustomTooltip, { TooltipComponent } from "../CustomTooltip";
+import { RootState } from "../../modules";
 
 interface Props {
   spellNumber: number;
-  spellData: SummonerSpellInfo[];
   radius?: string;
   size?: string;
 }
 
-const SummonerSpellIcon: React.FC<Props> = ({
-  spellNumber,
-  spellData,
-  size,
-  radius,
-}) => {
+const SummonerSpellIcon: React.FC<Props> = ({ spellNumber, size, radius }) => {
+  const {
+    data: { data: spellData },
+  } = useSelector((state: RootState) => state.spellData);
+
+  if (!spellData) return null;
+
   const currentSpellData = spellData.find(
     (spellInfo: SummonerSpellInfo) => spellInfo.key === String(spellNumber),
   );

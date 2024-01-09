@@ -7,12 +7,14 @@ import {
   getSummonerPuuid,
   getSummonerSpellData,
   getSummonerPerkData,
+  getSummonerItemData,
 } from "../api/summonerApis";
 import {
   SummonerSpellInfo,
   SummonerInfo,
   SummonerMatchInfo,
   PerkInfo,
+  ItemInfo,
 } from "../types/SummonerType";
 import SummonerSearchHeader from "../components/summonerSearch/SummonerSearchHeader";
 import SummonerMatchCard from "../components/summonerSearch/SummonerMatchCard";
@@ -29,18 +31,6 @@ const SummonerSearchPage: React.FC = () => {
       matchId: [],
     },
   );
-  const [spellData, setSpellData] = useState<SummonerSpellInfo[] | null>(null);
-  const [perkData, setPerkData] = useState<PerkInfo[] | null>(null);
-
-  const updateSummonerSpellData = () => {
-    getSummonerSpellData().then((data: SummonerSpellInfo[]) =>
-      setSpellData(data),
-    );
-  };
-
-  const updateSummonerPerkData = () => {
-    getSummonerPerkData().then((data: PerkInfo[]) => setPerkData(data));
-  };
 
   const { tablet } = useCustomQuery();
 
@@ -57,7 +47,6 @@ const SummonerSearchPage: React.FC = () => {
     const matchInfo = await getSummonerMatchInfo(puuid, summonerMatchInfo);
     setSummonerMatchInfo(matchInfo);
   };
-
   useEffect(() => {
     const fetchData = async () => {
       if (searchName && searchTag) {
@@ -65,8 +54,6 @@ const SummonerSearchPage: React.FC = () => {
           const puuid = await getSummonerPuuid(searchName, searchTag);
           const summonerInfo = await getSummonerInfo(puuid);
           await updateSummonerMatchInfo(puuid);
-          updateSummonerSpellData();
-          updateSummonerPerkData();
           setSummonerData(summonerInfo);
         } catch (error) {
           throw new Error("useEffect 에러");
@@ -95,8 +82,6 @@ const SummonerSearchPage: React.FC = () => {
                   key={matchInfo.info.gameId}
                   matchData={matchInfo}
                   summonerInfo={summonerData}
-                  spellData={spellData}
-                  perkData={perkData}
                 />
               ))}
             </Box>

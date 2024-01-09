@@ -1,5 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
+import { useSelector } from "react-redux";
 import {
   PerkInfo,
   SummonerRuneData,
@@ -9,20 +10,24 @@ import {
 import SUMMONER from "../../constants/Summoner";
 import CustomTooltip, { TooltipComponent } from "../CustomTooltip";
 import { getRuneIconUrl } from "../../\butils/MessageFormat";
+import { RootState } from "../../modules";
 
 interface Props {
-  perkData: PerkInfo[];
   summonerPerkData: SummonerRuneData;
   type: "primary" | "sub";
   size?: string;
 }
 
 const SummonerRuneIcon: React.FC<Props> = ({
-  perkData,
   summonerPerkData,
   type,
   size,
 }) => {
+  const {
+    data: { data: perkData },
+  } = useSelector((state: RootState) => state.perkData);
+
+  if (!perkData) return null;
   const currentStyle = summonerPerkData.styles.find(
     (rune) => rune.description === `${type}Style`,
   ) as Style;

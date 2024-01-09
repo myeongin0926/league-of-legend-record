@@ -90,6 +90,13 @@ type MatchParticipant = {
   summoner1Id: number;
   summoner2Id: number;
   perks: SummonerRuneData;
+  item0: number;
+  item1: number;
+  item2: number;
+  item3: number;
+  item4: number;
+  item5: number;
+  item6: number;
 };
 
 export interface SummonerMatchInfo {
@@ -109,6 +116,19 @@ export type SummonerSpellInfo = {
   description: string;
 };
 
+export type Style = {
+  description: string;
+  style: number;
+  selections: { perk: number }[];
+};
+
+export type SummonerRuneData = {
+  styles: Style[];
+};
+
+export interface ItemInfo {
+  name: string;
+}
 export interface Perk {
   icon: string;
   id: number;
@@ -119,13 +139,3 @@ export interface Perk {
 export interface PerkInfo extends Perk {
   slots: { runes: Perk[] }[];
 }
-
-export type Style = {
-  description: string;
-  style: number;
-  selections: { perk: number }[];
-};
-
-export type SummonerRuneData = {
-  styles: Style[];
-};

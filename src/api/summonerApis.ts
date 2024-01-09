@@ -83,13 +83,22 @@ const getSummonerPerkData = async () => {
   const res = await axios.get(
     "https://ddragon.leagueoflegends.com/cdn/10.6.1/data/ko_KR/runesReforged.json",
   );
-  const perkData = res.data;
-  return perkData;
+  return res.data;
 };
+
+const getSummonerItemData = async () => {
+  const res = await axios.get(
+    "https://ddragon.leagueoflegends.com/cdn/13.24.1/data/ko_KR/item.json",
+  );
+  const ItemData = res.data.data;
+  return ItemData;
+};
+
 export {
   getSummonerInfo,
   getSummonerPuuid,
   getSummonerMatchInfo,
   getSummonerSpellData,
   getSummonerPerkData,
+  getSummonerItemData,
 };

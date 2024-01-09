@@ -11,6 +11,7 @@ module.exports = {
     "plugin:prettier/recommended",
   ],
   rules: {
+    "default-param-last": 0,
     "linebreak-style": 0,
     "import/prefer-default-export": 0,
     "import/extensions": 0,
@@ -21,6 +22,7 @@ module.exports = {
     "no-shadow": 0,
     "react/prop-types": 0,
     "no-nested-ternary": 0,
+    "@typescript-eslint/no-explicit-any": ["off"],
     "react/jsx-filename-extension": [
       2,
       { extensions: [".js", ".jsx", ".ts", ".tsx"] },
